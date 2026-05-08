@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Yagna 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#e8739a;--blush:#f4b8cb;--peach:#f9d5c2;
+  --cream:#fff8f3;--gold:#e8c07a;
+  --text-dark:#4a2035;--text-mid:#7a4060;
+}
+body{font-family:'Lato',sans-serif;background:var(--cream);min-height:100vh;overflow-x:hidden}
+.bg-petals{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 20%,#fce8ef55 0%,transparent 70%),
+    radial-gradient(ellipse 50% 50% at 90% 80%,#fde8d855 0%,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 50% 50%,#fff4f855 0%,transparent 80%)}
+
+/* FLOATERS */
+.floaters{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.floater{
+  position:absolute;
+  font-size:1.4rem;user-select:none;
+  animation:floatUp linear forwards;opacity:0;
+}
+@keyframes floatUp{
+  0%{opacity:0;transform:translateY(0) rotate(0deg) scale(0.8)}
+  15%{opacity:0.9}
+  80%{opacity:0.6}
+  100%{opacity:0;transform:translateY(-110vh) rotate(380deg) scale(1.1)}
+}
+
+/* LAYOUT */
+.page{
+  position:relative;z-index:2;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:3rem 1.5rem 5rem;gap:2.8rem
+}
+
+/* BADGE */
+.from-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:#fff;border:1px solid #f3c8d8;border-radius:50px;
+  padding:.45rem 1.3rem;font-size:.8rem;color:var(--text-mid);
+  letter-spacing:.06em;box-shadow:0 2px 14px #e8739a15;
+  animation:fadeDown .8s ease forwards;opacity:0
+}
+.from-badge span{color:var(--rose)}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+
+/* HEADER */
+.header{text-align:center;animation:fadeUp .9s .2s ease forwards;opacity:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);margin-bottom:.6rem}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6.5vw,4rem);color:var(--text-dark);line-height:1.12}
+h1 em{font-style:italic;color:var(--rose)}
+.sub{margin-top:1rem;color:var(--text-mid);font-size:1rem;font-weight:300;line-height:1.8;max-width:430px}
+
+/* AFFIRMATION CARD */
+.card{
+  background:#fff;border:1.5px solid #f3c8d8;border-radius:24px;
+  padding:2.4rem 2.8rem;max-width:540px;width:100%;text-align:center;
+  box-shadow:0 8px 40px #e8739a18;
+  animation:fadeUp .9s .4s ease forwards;opacity:0
+}
+.card-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blush);margin-bottom:1rem}
+.affirmation{
+  font-family:'Playfair Display',serif;font-size:clamp(1.1rem,3vw,1.45rem);
+  color:var(--text-dark);line-height:1.6;
+  min-height:5em;display:flex;align-items:center;justify-content:center;
+  transition:opacity .45s ease,transform .45s ease;
+}
+.affirmation.fade{opacity:0;transform:translateY(10px)}
+.aff-author{margin-top:1rem;font-size:.85rem;color:var(--text-mid);font-weight:300;transition:opacity .45s ease}
+.aff-author.fade{opacity:0}
+
+/* LETTER */
+.letter{
+  max-width:540px;width:100%;background:#fff;
+  border:1px solid #f3e0e8;border-radius:20px;padding:2rem 2.4rem;
+  position:relative;animation:fadeUp .9s .5s ease forwards;opacity:0
+}
+.letter::before{
+  content:'✉';position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--cream);padding:0 .7rem;font-size:1.1rem;color:var(--rose)
+}
+.letter-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;text-align:center}
+.letter p{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--text-dark);line-height:1.85;text-align:center}
+.letter .sign{margin-top:1.2rem;text-align:right;font-size:.9rem;color:var(--rose);font-family:'Playfair Display',serif}
+
+/* STARS */
+.stars-strip{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}
+.star-pill{
+  background:#fff;border:1px solid #f3c8d8;border-radius:50px;
+  padding:.48rem 1.15rem;font-size:.88rem;color:var(--text-mid);
+  cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s;user-select:none
+}
+.star-pill:hover{background:#fdeef3;transform:scale(1.08);box-shadow:0 4px 14px #e8739a22}
+.star-pill.lit{background:var(--rose);color:#fff;border-color:var(--rose);box-shadow:0 4px 16px #e8739a44}
+
+/* SMILE BUTTON */
+.smile-btn{
+  display:inline-flex;align-items:center;gap:.7rem;
+  background:var(--rose);color:#fff;border:none;border-radius:50px;
+  padding:.95rem 2.4rem;font-family:'Lato',sans-serif;font-size:1.05rem;
+  cursor:pointer;transition:transform .15s,box-shadow .2s;
+  box-shadow:0 6px 24px #e8739a50
+}
+.smile-btn:hover{transform:translateY(-3px);box-shadow:0 10px 32px #e8739a66}
+.smile-btn:active{transform:scale(.96)}
+
+/* FUN BOX */
+.fun-box{
+  background:#fff;border:1.5px solid #f8d8c0;border-radius:20px;
+  padding:1.8rem 2.2rem;max-width:500px;width:100%;text-align:center;
+  opacity:0;transform:scale(.93);
+  transition:opacity .4s ease,transform .4s ease;pointer-events:none
+}
+.fun-box.show{opacity:1;transform:scale(1);pointer-events:auto}
+.fun-label{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.fun-box p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--text-dark);line-height:1.65}
+
+/* REASONS */
+.reasons{max-width:540px;width:100%;text-align:center}
+.reasons-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:1.2rem}
+.reasons-title em{color:var(--rose);font-style:italic}
+.reasons-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.reason-card{
+  background:#fff;border:1px solid #f3c8d8;border-radius:16px;
+  padding:1rem 1.1rem;text-align:left;
+  opacity:0;transform:translateY(14px);
+  transition:opacity .5s ease,transform .5s ease
+}
+.reason-card.visible{opacity:1;transform:translateY(0)}
+.r-icon{font-size:1.3rem;margin-bottom:.4rem;display:block}
+.r-text{font-size:.88rem;color:var(--text-mid);line-height:1.5}
+.r-text strong{display:block;color:var(--text-dark);font-size:.92rem;margin-bottom:.2rem}
+
+/* PROMISES */
+.promises{max-width:520px;width:100%;display:flex;flex-direction:column;gap:1rem}
+.promise-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:#fff;border:1px solid #f3e8ee;border-radius:16px;padding:1.1rem 1.4rem;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .5s ease,transform .5s ease
+}
+.promise-item.visible{opacity:1;transform:translateX(0)}
+.pip{min-width:34px;height:34px;background:var(--peach);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1rem}
+.promise-item p{font-size:.95rem;color:var(--text-mid);line-height:1.6;font-weight:300}
+.promise-item p strong{color:var(--text-dark);font-weight:400}
+
+/* ══════ MEMORY GAME ══════ */
+.game-section{max-width:540px;width:100%;text-align:center}
+.game-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--text-dark);margin-bottom:.4rem}
+.game-title em{color:var(--rose);font-style:italic}
+.game-sub{font-size:.85rem;color:var(--text-mid);margin-bottom:1.4rem;font-weight:300}
+.game-stats{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.stat-box{background:#fff;border:1px solid #f3c8d8;border-radius:14px;padding:.6rem 1.4rem;min-width:90px}
+.s-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--blush);margin-bottom:.2rem}
+.s-val{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--text-dark)}
+
+.card-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;
+  perspective:800px
+}
+.mem-card{
+  aspect-ratio:1;cursor:pointer;position:relative;
+  transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
+  border-radius:14px;
+}
+.mem-card.flipped,.mem-card.matched{transform:rotateY(180deg)}
+.mem-card.matched{cursor:default;animation:matchPop .35s ease}
+@keyframes matchPop{0%{transform:rotateY(180deg) scale(1)}50%{transform:rotateY(180deg) scale(1.12)}100%{transform:rotateY(180deg) scale(1)}}
+.card-face,.card-back{
+  position:absolute;inset:0;border-radius:14px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:flex;align-items:center;justify-content:center;font-size:1.7rem;
+}
+.card-face{
+  background:linear-gradient(135deg,#f9d5c2 0%,#f4b8cb 60%,#f0c4d8 100%);
+  border:1.5px solid #f3c8d8;
+  color:var(--rose);font-size:1.3rem;
+}
+.card-face::after{content:'🌸'}
+.card-back{
+  background:#fff;border:1.5px solid #f3c8d8;
+  transform:rotateY(180deg);
+}
+.mem-card.matched .card-back{
+  background:linear-gradient(135deg,#fde8ef 0%,#fdeef3 100%);
+  border-color:var(--rose);
+  box-shadow:0 0 0 2px #f4b8cb40;
+}
+
+/* RESET GAME BTN */
+.reset-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:#fff;color:var(--rose);
+  border:1.5px solid var(--rose);border-radius:50px;
+  padding:.6rem 1.6rem;font-family:'Lato',sans-serif;font-size:.9rem;
+  cursor:pointer;margin-top:1rem;
+  transition:background .2s,transform .15s
+}
+.reset-btn:hover{background:#fdeef3;transform:scale(1.04)}
+
+/* WIN OVERLAY */
+.win-overlay{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(255,248,243,.95);
+  align-items:center;justify-content:center;
+  flex-direction:column;gap:1.4rem;text-align:center;padding:2rem;
+}
+.win-overlay.show{display:flex;animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.win-overlay h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,5vw,2.8rem);color:var(--text-dark);line-height:1.2
+}
+.win-overlay h2 em{color:var(--rose);font-style:italic}
+.win-overlay .win-msg{font-size:1rem;color:var(--text-mid);font-weight:300;line-height:1.8;max-width:360px}
+.win-overlay .win-sign{font-size:.88rem;color:var(--rose);font-family:'Playfair Display',serif;font-style:italic}
+.win-play-btn{
+  background:var(--rose);color:#fff;border:none;border-radius:50px;
+  padding:.85rem 2.2rem;font-family:'Lato',sans-serif;font-size:1rem;
+  cursor:pointer;box-shadow:0 6px 20px #e8739a44;transition:transform .15s
+}
+.win-play-btn:hover{transform:translateY(-2px)}
+
+/* FOOTER */
+.footer-note{text-align:center;color:var(--text-mid);font-size:.82rem;font-weight:300;letter-spacing:.04em}
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:99}
+
+@media(max-width:480px){
+  .card{padding:1.8rem 1.3rem}
+  .letter{padding:1.6rem 1.2rem}
+  .reasons-grid{grid-template-columns:1fr}
+  .card-grid{gap:.5rem}
+  .card-face,.card-back{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-petals"></div>
+<div class="floaters" id="floaters"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- WIN OVERLAY -->
+<div class="win-overlay" id="winOverlay">
+  <div style="font-size:3.5rem;animation:bounce 1s infinite alternate">💖</div>
+  <style>@keyframes bounce{from{transform:scale(1)}to{transform:scale(1.2)}}</style>
+  <h2>You did it, <em>Yagna!</em> 🎉</h2>
+  <p class="win-msg">Just like you always do — you found every hidden gem. Manoj knew you would. You are brilliant, beautiful, and this smile on your face right now? That is his absolute favourite thing in the entire world.</p>
+  <p class="win-sign">— with all his heart, Manoj ♡</p>
+  <button class="win-play-btn" id="winPlayBtn">Play Again 🌸</button>
+</div>
+
+<div class="page">
+
+  <!-- Badge -->
+  <div class="from-badge">💌 from <span>Manoj</span>, just for Yagna</div>
+
+  <!-- Header -->
+  <div class="header">
+    <p class="eyebrow">hey yagna ✦</p>
+    <h1>You are my<br><em>favourite person</em><br>in the whole world.</h1>
+    <p class="sub">I know yesterday wasn't kind to you. But trust me — even on your hardest days, you are still the most wonderful person I know.</p>
+  </div>
+
+  <!-- Affirmation Card -->
+  <div class="card">
+    <p class="card-label">✦ a little reminder from Manoj ✦</p>
+    <div class="affirmation" id="affirmation">"Yagna, you are worthy of every beautiful thing coming your way."</div>
+    <p class="aff-author" id="affAuthor">— Manoj, always</p>
+  </div>
+
+  <!-- Personal Letter -->
+  <div class="letter">
+    <p class="letter-label">✦ a note from Manoj ✦</p>
+    <p>
+      Dear Yagna,<br><br>
+      I hate seeing you sad. You deserve every happiness the world has — and I promise I will always do my best to make sure you feel that. Yesterday was just one page of a very beautiful story still being written — <em>our</em> story.<br><br>
+      So take a deep breath. Let today be a little softer. I am right here, always.
+    </p>
+    <p class="sign">With all my love, Manoj 🌷</p>
+  </div>
+
+  <!-- Stars -->
+  <div style="text-align:center">
+    <p style="font-size:.8rem;color:var(--text-mid);margin-bottom:.9rem;letter-spacing:.08em">Yagna is… tap each one to light it up ✨</p>
+    <div class="stars-strip" id="starsStrip"></div>
+  </div>
+
+  <!-- Smile Button -->
+  <div style="text-align:center">
+    <p style="font-size:.85rem;color:var(--text-mid);margin-bottom:.9rem">Manoj saved a joke just for Yagna 👇</p>
+    <button class="smile-btn" id="smileBtn">🌻 Make Yagna smile!</button>
+  </div>
+  <div class="fun-box" id="funBox">
+    <p class="fun-label">✦ Manoj's joke of the day ✦</p>
+    <p id="funText"></p>
+  </div>
+
+  <!-- Reasons -->
+  <div class="reasons">
+    <p class="reasons-title">Reasons Manoj is <em>crazy about Yagna</em></p>
+    <div class="reasons-grid" id="reasonsGrid"></div>
+  </div>
+
+  <!-- Promises -->
+  <div class="promises" id="promises">
+    <div class="promise-item" data-delay="0">
+      <div class="pip">🌷</div>
+      <p><strong>Bad days don't last, Yagna.</strong> They visit, they leave. You remain — radiant as always.</p>
+    </div>
+    <div class="promise-item" data-delay="150">
+      <div class="pip">☀️</div>
+      <p><strong>Manoj loves you every single day.</strong> Not just the good ones — every single one.</p>
+    </div>
+    <div class="promise-item" data-delay="300">
+      <div class="pip">🍵</div>
+      <p><strong>Rest is not giving up.</strong> Take your time, Yagna. The world will wait for you, gladly.</p>
+    </div>
+    <div class="promise-item" data-delay="450">
+      <div class="pip">💌</div>
+      <p><strong>Tomorrow holds something sweet.</strong> Even if today doesn't quite feel like it yet.</p>
+    </div>
+  </div>
+
+  <!-- ══ MEMORY GAME ══ -->
+  <div class="game-section">
+    <p class="game-title">Manoj's little puzzle for <em>Yagna</em> 🎮</p>
+    <p class="game-sub">Flip the cards and match all the pairs — find the love hidden in each one!</p>
+    <div class="game-stats">
+      <div class="stat-box">
+        <div class="s-label">Moves</div>
+        <div class="s-val" id="moveCount">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="s-label">Pairs Found</div>
+        <div class="s-val" id="pairCount">0 / 8</div>
+      </div>
+    </div>
+    <div class="card-grid" id="cardGrid"></div>
+    <button class="reset-btn" id="resetBtn">🔄 Shuffle & Restart</button>
+  </div>
+
+  <p class="footer-note">made with all of Manoj's love, for Yagna ♡</p>
+
+</div>
+
+<script>
+/* ───────────────── FLOATERS ───────────────── */
+const EMOJIS_FLOAT=['🌸','🌷','✨','💖','🦋','🌼','💫','🌹','🌺','💝','🎀','⭐'];
+const floatersEl=document.getElementById('floaters');
+function spawnFloater(){
+  const el=document.createElement('span');
+  el.className='floater';
+  el.textContent=EMOJIS_FLOAT[Math.floor(Math.random()*EMOJIS_FLOAT.length)];
+  el.style.left=Math.random()*95+'vw';
+  el.style.bottom='-60px';
+  const dur=9+Math.random()*10;
+  el.style.animationDuration=dur+'s';
+  el.style.fontSize=(0.9+Math.random()*1.1)+'rem';
+  floatersEl.appendChild(el);
+  setTimeout(()=>el.remove(),(dur+1)*1000);
+}
+setInterval(spawnFloater,900);
+for(let i=0;i<12;i++)setTimeout(spawnFloater,i*180);
+
+/* ───────────────── AFFIRMATIONS ───────────────── */
+const AFF=[
+  ["Yagna, you are worthy of every beautiful thing coming your way.","— Manoj, always"],
+  ["Your smile is Manoj's favourite thing in the entire universe.","— an absolute fact"],
+  ["On your worst days you are still the most wonderful person, Yagna.","— an unchangeable truth"],
+  ["You carry so much warmth and kindness. The world needs it.","— Manoj, your biggest fan"],
+  ["Yagna, you are not defined by one hard day.","— a gentle promise"],
+  ["Manoj is grateful every single day that you exist in his world.","— every day without exception"],
+  ["You deserve all the softness and warmth life can offer, Yagna.","— always and forever"],
+  ["Even clouds take breaks. So can you, my Yagna.","— the sky, probably"],
+  ["The best is still ahead of you both. Keep going, together.","— a pinky promise from Manoj"],
+];
+let ai=0;
+const affEl=document.getElementById('affirmation');
+const authEl=document.getElementById('affAuthor');
+setInterval(()=>{
+  affEl.classList.add('fade');
+  authEl.classList.add('fade');
+  setTimeout(()=>{
+    ai=(ai+1)%AFF.length;
+    affEl.textContent='"'+AFF[ai][0]+'"';
+    authEl.textContent=AFF[ai][1];
+    affEl.classList.remove('fade');
+    authEl.classList.remove('fade');
+  },460);
+},4500);
+
+/* ───────────────── STARS ───────────────── */
+const STARS=['kind','brave','beautiful','funny','smart','warm','strong','magical','caring','amazing'];
+const starsEl=document.getElementById('starsStrip');
+STARS.forEach(lbl=>{
+  const p=document.createElement('div');
+  p.className='star-pill';
+  p.textContent='✦ '+lbl;
+  p.addEventListener('click',()=>{p.classList.toggle('lit');boom(8)});
+  starsEl.appendChild(p);
+});
+
+/* ───────────────── JOKES ───────────────── */
+const JOKES=[
+  "Why did the teddy bear say no to dessert? She was already stuffed — just like Manoj's heart with love for Yagna. 🐻",
+  "What do you call a sleeping dinosaur? A dino-snore. But Yagna? Never boring, always adorable. 🦕",
+  "Why did the sun go to school? To get a little brighter — just like Yagna makes every day for Manoj. ☀️",
+  "What do clouds wear under their raincoats? Thunderwear. (Yagna, please laugh. Manoj worked very hard on this.) ⛅",
+  "Why did the flower cross the road? To get closer to Yagna, obviously. 🌷",
+  "What do you call cheese that isn't yours? Nacho cheese! Manoj's bad jokes though? 100% Yagna's problem. 🧀",
+  "What did the ocean say to the beach? Nothing, it just waved — like Yagna waves away every bad day. 🌊",
+  "Why did the cookie cry? Its mum was a wafer too long. Manoj promises never to wafer on loving Yagna. 🍪",
+  "Why did the calendar go to therapy? Too many dates. Unlike Manoj and Yagna — every date is perfect. 📅",
+  "What do you call a bear with no teeth? A gummy bear! Still not as sweet as Yagna though. 🐻",
+];
+let ji=0;
+const funBox=document.getElementById('funBox');
+const funText=document.getElementById('funText');
+document.getElementById('smileBtn').addEventListener('click',()=>{
+  funText.textContent=JOKES[ji%JOKES.length];ji++;
+  funBox.classList.add('show');boom(28);
+});
+
+/* ───────────────── REASONS ───────────────── */
+const REASONS=[
+  {icon:'😄',title:'Your laugh',text:'It lights up every room and every single moment.'},
+  {icon:'💡',title:'Your mind',text:'Thoughtful, sharp, and always surprising Manoj.'},
+  {icon:'🤗',title:'Your warmth',text:'Everyone feels safe and loved when you are near.'},
+  {icon:'✨',title:'Your spirit',text:'You face life with a grace that never stops amazing him.'},
+  {icon:'🎶',title:'Your quirks',text:'Every little habit that makes you perfectly you.'},
+  {icon:'💪',title:'Your strength',text:'Even when you think you are weak — you are not.'},
+];
+const rGrid=document.getElementById('reasonsGrid');
+REASONS.forEach((r,i)=>{
+  const c=document.createElement('div');
+  c.className='reason-card';
+  c.style.transitionDelay=(i*90)+'ms';
+  c.innerHTML=`<span class="r-icon">${r.icon}</span><div class="r-text"><strong>${r.title}</strong>${r.text}</div>`;
+  rGrid.appendChild(c);
+});
+
+/* ───────────────── SCROLL REVEAL ───────────────── */
+function observe(selector){
+  const els=document.querySelectorAll(selector);
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const delay=parseInt(e.target.dataset.delay||0);
+      setTimeout(()=>e.target.classList.add('visible'),delay);
+      ob.unobserve(e.target);
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -10px 0px'});
+  els.forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight-30){
+      const d=parseInt(el.dataset.delay||0);
+      setTimeout(()=>el.classList.add('visible'),d+200);
+    } else {
+      ob.observe(el);
+    }
+  });
+}
+window.addEventListener('load',()=>{
+  observe('.promise-item');
+  observe('.reason-card');
+});
+
+/* ═══════════════════════════════════════════
+   MEMORY MATCH GAME
+═══════════════════════════════════════════ */
+const GAME_EMOJIS=['🌸','🦋','💖','🌷','🌟','🍓','🌈','🎀'];
+let flipped=[],matched=0,moves=0,lockBoard=false;
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function buildGame(){
+  matched=0;moves=0;flipped=[];lockBoard=false;
+  document.getElementById('moveCount').textContent='0';
+  document.getElementById('pairCount').textContent='0 / 8';
+  const deck=shuffle([...GAME_EMOJIS,...GAME_EMOJIS]);
+  const grid=document.getElementById('cardGrid');
+  grid.innerHTML='';
+  deck.forEach((emoji)=>{
+    const card=document.createElement('div');
+    card.className='mem-card';
+    card.dataset.val=emoji;
+    card.innerHTML=`<div class="card-face"></div><div class="card-back">${emoji}</div>`;
+    card.addEventListener('click',()=>onCardClick(card));
+    grid.appendChild(card);
+  });
+}
+
+function onCardClick(card){
+  if(lockBoard)return;
+  if(card.classList.contains('flipped')||card.classList.contains('matched'))return;
+  card.classList.add('flipped');
+  flipped.push(card);
+  if(flipped.length<2)return;
+  // Two cards flipped — check match
+  lockBoard=true;
+  moves++;
+  document.getElementById('moveCount').textContent=moves;
+  const[a,b]=flipped;
+  if(a.dataset.val===b.dataset.val){
+    setTimeout(()=>{
+      a.classList.add('matched');b.classList.add('matched');
+      a.classList.remove('flipped');b.classList.remove('flipped');
+      matched++;
+      document.getElementById('pairCount').textContent=matched+' / 8';
+      flipped=[];lockBoard=false;
+      boom(10);
+      if(matched===8)setTimeout(showWin,700);
+    },350);
+  } else {
+    setTimeout(()=>{
+      a.classList.remove('flipped');b.classList.remove('flipped');
+      flipped=[];lockBoard=false;
+    },950);
+  }
+}
+
+function showWin(){
+  document.getElementById('winOverlay').classList.add('show');
+  for(let i=0;i<7;i++)setTimeout(()=>boom(50),i*280);
+}
+
+document.getElementById('winPlayBtn').addEventListener('click',()=>{
+  document.getElementById('winOverlay').classList.remove('show');
+  buildGame();
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  buildGame();
+});
+
+buildGame();
+
+/* ───────────────── CONFETTI ───────────────── */
+const canvas=document.getElementById('confetti-canvas');
+const ctx=canvas.getContext('2d');
+let particles=[];
+function resizeCanvas(){canvas.width=innerWidth;canvas.height=innerHeight}
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
+
+function boom(n){
+  const cols=['#e8739a','#f4b8cb','#f9d5c2','#e8c07a','#c78fbc','#f0a0b5','#9de0d0','#b8e0b0'];
+  const cx=canvas.width/2;const cy=canvas.height*.4;
+  for(let i=0;i<n;i++){
+    const angle=Math.random()*Math.PI*2;
+    const speed=2+Math.random()*5;
+    particles.push({
+      x:cx+(Math.random()-.5)*canvas.width*.7,
+      y:cy+(Math.random()-.5)*canvas.height*.4,
+      r:3+Math.random()*5,
+      color:cols[Math.floor(Math.random()*cols.length)],
+      vx:Math.cos(angle)*speed,
+      vy:Math.sin(angle)*speed-3,
+      gravity:.14,alpha:1,
+      shape:Math.random()>.4?'circle':'rect',
+      rot:Math.random()*Math.PI*2,
+      rotV:(Math.random()-.5)*.18,
+    });
+  }
+  if(!animating)tick();
+}
+let animating=false;
+function tick(){
+  animating=true;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles=particles.filter(p=>p.alpha>.02);
+  particles.forEach(p=>{
+    p.vy+=p.gravity;p.x+=p.vx;p.y+=p.vy;
+    p.alpha-=.013;p.rot+=p.rotV;
+    ctx.save();
+    ctx.globalAlpha=Math.max(0,p.alpha);
+    ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+    ctx.fillStyle=p.color;
+    if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}
+    else ctx.fillRect(-p.r,-p.r*.5,p.r*2,p.r);
+    ctx.restore();
+  });
+  if(particles.length)requestAnimationFrame(tick);
+  else{animating=false;ctx.clearRect(0,0,canvas.width,canvas.height);}
+}
+</script>
+</body>
+</html>
